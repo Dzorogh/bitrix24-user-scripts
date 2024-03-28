@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Bitrix24 Convert Input To Select
 // @namespace    https://crm.globaldrive.ru/
-// @version      0.0.2
+// @version      1.0.0
 // @description  Tasks doesn't have dropdown lists in our version of B24, this scripts solves this problem.
-// @author       Dzorogh
+// @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
 // @require      https://cdn.jsdelivr.net/npm/public-google-sheets-parser@latest
 // @grant        GM_addStyle
@@ -11,24 +11,23 @@
 // @updateURL    https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
 // ==/UserScript==
 
-(function() {
-    const lsKey = 'convertInputToSelectSheetId';
+(async function() {
+    
+    const getSheetId = (lsKey) => {
+        let sheetId = localStorage.getItem(lsKey);
 
-    let sheetId = localStorage.getItem(lsKey);
+        if (!sheetId || sheetId === 'null') {
+            sheetId = prompt('Please enter Google Sheet Id');
 
-    if (!sheetId || sheetId === 'null') {
-        sheetId = prompt('Please enter Google Sheet Id');
-        if (sheetId) {
-            localStorage.setItem(lsKey, sheetId);
+            if (sheetId) {
+                localStorage.setItem(lsKey, sheetId);
+            }
         }
+
+        return sheetId;
     }
 
-    if (!sheetId) {
-        console.error('No sheet ID provided');
-        return false;
-    }
-
-    const parseExcel = (sheetId, sheetName) => {
+    const parseExcel = async (sheetId, sheetName) => {
         const parser = new PublicGoogleSheetsParser(sheetId, { sheetName })
         const parserData = await parser.parse();
 
@@ -41,15 +40,8 @@
         return parserData
     }
     
-    async function convertInputToSelect(sheetId, sheetName, fieldId) {
-        const parser = new PublicGoogleSheetsParser(sheetId, { sheetName })
-        const parserData = await parser.parse();
-
-        console.log('convertInputToSelect: parserData', parserData)
-
-        if (!parserData.length) {
-            localStorage.removeItem(lsKey);
-        }
+    const convertInputToSelect = async (sheetId, sheetName, fieldId) => {
+        const parserData = await parseExcel(sheetId, sheetName);
 
         const options = parserData.map((item) => {
             return item.value;
@@ -80,7 +72,6 @@
             }
         }
         
-
         const newSelectElement = document.createElement("select");
 
         copyAttsTo(inputElement, newSelectElement);
@@ -106,12 +97,25 @@
         })
     }
 
-    convertInputToSelect(sheetId, 'Companies', 'UF_AUTO_555825536710');
+    const parseConfig = async (sheetId, sheetName) => {
+        return parserData = await parseExcel(sheetId, sheetName);
+    }
 
-    convertInputToSelect(sheetId, 'Projects', 'UF_AUTO_231937255950');
+    const lsKey = 'convertInputToSelectSheetId';
+    const configListName = '[Config]';
 
-    convertInputToSelect(sheetId, 'Types', 'UF_AUTO_692505608773');
+    const sheetId = getSheetId(lsKey);
 
-    convertInputToSelect(sheetId, 'Priorities', 'UF_AUTO_367625648403');
-    
+    if (!sheetId) {
+        console.error('No sheet ID provided');
+        return false;
+    }
+
+    const config = await parseConfig(sheetId, configListName);
+
+    console.log(config)
+
+    config.forEach((field) => {
+        convertInputToSelect(sheetId, field.list_name, field.field_id) 
+    });
 })();
