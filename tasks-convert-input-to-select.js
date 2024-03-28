@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         Bitrix24 Convert Input To Select
 // @namespace    https://crm.globaldrive.ru/
-// @version      2024-02-22-2
+// @version      0.0.2
 // @description  Tasks doesn't have dropdown lists in our version of B24, this scripts solves this problem.
 // @author       Dzorogh
 // @match        https://crm.globaldrive.ru/*
 // @require      https://cdn.jsdelivr.net/npm/public-google-sheets-parser@latest
 // @grant        GM_addStyle
+// @downloadURL  https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
+// @updateURL    https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
 // ==/UserScript==
 
 (function() {
@@ -24,6 +26,19 @@
     if (!sheetId) {
         console.error('No sheet ID provided');
         return false;
+    }
+
+    const parseExcel = (sheetId, sheetName) => {
+        const parser = new PublicGoogleSheetsParser(sheetId, { sheetName })
+        const parserData = await parser.parse();
+
+        console.log('convertInputToSelect: parserData', parserData)
+
+        if (!parserData.length) {
+            localStorage.removeItem(lsKey);
+        }
+
+        return parserData
     }
     
     async function convertInputToSelect(sheetId, sheetName, fieldId) {
