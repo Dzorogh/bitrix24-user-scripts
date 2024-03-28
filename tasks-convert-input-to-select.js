@@ -5,7 +5,7 @@
 // @description  Tasks doesn't have dropdown lists in our version of B24, this scripts solves this problem.
 // @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
-// @require      https://cdn.jsdelivr.net/npm/public-google-sheets-parser@latest
+// @require      https://cdn.jsdelivr.net/npm/public-google-sheets-parser@1.5.3
 // @grant        GM_addStyle
 // @downloadURL  https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
 // @updateURL    https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
