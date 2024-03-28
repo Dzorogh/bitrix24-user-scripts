@@ -116,6 +116,6 @@
     console.log(config)
 
     config.forEach((field) => {
-        convertInputToSelect(sheetId, field.list_name, field.field_id) 
+        convertInputToSelect(sheetId, field.list_name, field.field_id); 
     });
 })();
