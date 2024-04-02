@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 (async function() {
-
+    
     const getSheetId = (lsKey) => {
         let sheetId = localStorage.getItem(lsKey);
 
@@ -39,7 +39,7 @@
 
         return parserData
     }
-
+    
     const convertInputToSelect = async (sheetId, sheetName, fieldId) => {
         const parserData = await parseExcel(sheetId, sheetName);
 
@@ -71,7 +71,7 @@
                 }
             }
         }
-
+        
         const newSelectElement = document.createElement("select");
 
         copyAttsTo(inputElement, newSelectElement);
@@ -98,7 +98,7 @@
     }
 
     const parseConfig = async (sheetId, sheetName) => {
-        return parserData = await parseExcel(sheetId, sheetName);
+        return await parseExcel(sheetId, sheetName);
     }
 
     const lsKey = 'convertInputToSelectSheetId';
