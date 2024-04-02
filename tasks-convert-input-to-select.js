@@ -7,12 +7,12 @@
 // @match        https://crm.globaldrive.ru/*
 // @require      https://cdn.jsdelivr.net/npm/public-google-sheets-parser@1.5.3
 // @grant        GM_addStyle
-// @downloadURL  https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
-// @updateURL    https://raw.githubusercontent.com/Dzorogh/bitrix24-user-scripts/main/tasks-convert-input-to-select.js
+// @downloadURL https://update.greasyfork.org/scripts/491078/Bitrix24%20Convert%20Input%20To%20Select.user.js
+// @updateURL https://update.greasyfork.org/scripts/491078/Bitrix24%20Convert%20Input%20To%20Select.meta.js
 // ==/UserScript==
 
 (async function() {
-    
+
     const getSheetId = (lsKey) => {
         let sheetId = localStorage.getItem(lsKey);
 
@@ -34,12 +34,12 @@
         console.log('convertInputToSelect: parserData', parserData)
 
         if (!parserData.length) {
-            localStorage.removeItem(lsKey);
+            //localStorage.removeItem(lsKey);
         }
 
         return parserData
     }
-    
+
     const convertInputToSelect = async (sheetId, sheetName, fieldId) => {
         const parserData = await parseExcel(sheetId, sheetName);
 
@@ -71,7 +71,7 @@
                 }
             }
         }
-        
+
         const newSelectElement = document.createElement("select");
 
         copyAttsTo(inputElement, newSelectElement);
