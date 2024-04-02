@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bitrix24 Convert Input To Select
 // @namespace    https://crm.globaldrive.ru/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Tasks doesn't have dropdown lists in our version of B24, this scripts solves this problem.
 // @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
