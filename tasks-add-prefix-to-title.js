@@ -5,8 +5,6 @@
 // @description  Make and change prefix for tasks from selects. Must be combined with script that make selects for tasks custom fields.
 // @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        none
 // ==/UserScript==
 
 (function() {
