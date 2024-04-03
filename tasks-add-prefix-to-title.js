@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Bitrix24 Make Title With Prefix
 // @namespace    https://crm.globaldrive.ru/
-// @version      2024-04-03
-// @description  try to take over the world!
-// @author       You
+// @version      1.0.1
+// @description  Make and change prefix for tasks from selects. Must be combined with script that make selects for tasks custom fields.
+// @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
