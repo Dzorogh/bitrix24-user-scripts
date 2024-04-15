@@ -1,14 +1,29 @@
 // ==UserScript==
 // @name         Bitrix24 Make Title With Prefix
 // @namespace    https://crm.globaldrive.ru/
-// @version      1.0.1
+// @version      1.1.0
 // @description  Make and change prefix for tasks from selects. Must be combined with script that make selects for tasks custom fields.
 // @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
+// @downloadURL https://update.greasyfork.org/scripts/491549/Bitrix24%20Make%20Title%20With%20Prefix.user.js
+// @updateURL https://update.greasyfork.org/scripts/491549/Bitrix24%20Make%20Title%20With%20Prefix.meta.js
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    const taskTypes = [
+        "Feat",
+        "Fix",
+        "Refactor",
+        "Chore",
+        "Docs",
+        "Test",
+        "Style",
+        "Perf",
+        "Build",
+        "CI",
+    ]
 
     const waitForElm = (selector) => {
         return new Promise(resolve => {
@@ -50,12 +65,18 @@
         
         const currentTitle = titleInput.value;
 
-        const regex = /^[ABCD] - .{0,20}?( - (Feat|Fix|Refactor|Docs|Chore))* - /gmi;
+        const types = taskTypes.join('|')
+
+        const regex = new RegExp(`^[ABCD?] - .{0,20}?( - (${types}))* - `, 'gmi')
 
         let realTitle = currentTitle.replace(regex, '').trim();
 
-        const priority = getParamFromInput(inputsIds.PRIORITY);
-        const type = getParamFromInput(inputsIds.TYPE);
+        if (!realTitle) {
+            realTitle = 'Задача';
+        }
+
+        const priority = getParamFromInput(inputsIds.PRIORITY) || '?';
+        const type = getParamFromInput(inputsIds.TYPE) || 'Feat';
         const project = getParamFromInput(inputsIds.PROJECT);
 
         const newTitle = [priority, project, type, realTitle].filter(str => str.length).join(' - ');
