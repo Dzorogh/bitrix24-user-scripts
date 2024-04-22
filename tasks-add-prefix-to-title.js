@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bitrix24 Make Title With Prefix
 // @namespace    https://crm.globaldrive.ru/
-// @version      1.1.0
+// @version      1.1.1
 // @description  Make and change prefix for tasks from selects. Must be combined with script that make selects for tasks custom fields.
 // @author       Dzorogh 
 // @match        https://crm.globaldrive.ru/*
@@ -23,6 +23,7 @@
         "Perf",
         "Build",
         "CI",
+        "Plan"
     ]
 
     const waitForElm = (selector) => {
